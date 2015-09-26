@@ -49,7 +49,7 @@ class Data(object):
 		connector = pyGTrends(google_username, google_password)
 
 		# make request
-		connector.request_report("%s" % self.word, hl='en-US', cat=None, geo='US', date=None)
+		connector.request_report("%s" % self.word, hl='en-US', cat=None, geo='US', date="today 7-d")
 
 		# wait a random amount of time between requests to avoid bot detection
 		time.sleep(randint(5, 10))
