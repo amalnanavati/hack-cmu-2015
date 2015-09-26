@@ -1,6 +1,33 @@
 from Tkinter import *
 import math, random, copy
 
+
+class County(object):
+	def __init__(points,name,color,datalink):
+		self.points = points
+		self.name = name
+		self.datalink = datalink
+		self.selected = False
+		self.color =  color
+		self.selectColor = darken(color)
+		
+	@staticmethod
+	def darken(color):
+		(red,green,blue) = color
+		return "#%02x%02x%02x" % (red *0.8, green * 0.8, blue*0.8)
+		
+	def get_data(self):
+		#do stuff
+		#return stuff
+		
+	def draw(self,canvas):
+		if self.selected:
+			color = self.selectColor
+		else:
+			color = self.color
+		canvas.create_polygon(self.points,color,outline="black")
+		
+
 def convertSVGPathToXYPointsCounties(path):
     #print path
     points = [[]] #2D list, each with points for a create_polygon function
@@ -49,7 +76,7 @@ def drawSVGPathsCounties(fileName):
             #     rgbColor = colorData[ID]
             #     color = eval(rgbColor)
                 color = rgb(int(ID)%256, int(ID)%128, int(ID)%64)
-                canvas.create_polygon(*point, fill=color, outline="black")
+                canvas.create_polygon(point, fill=color, outline="black")
             else:
             #     rgbColor = colors[-1]
             #     color = eval(rgbColor)
@@ -60,14 +87,14 @@ def drawSVGPathsCounties(fileName):
     # for point in points:
     #     print "yay"
     #     canvas.create_polygon(*point, fill="red", outline="black")
-    # button1 = Button(text = "Quit", anchor = W)
-    # button1.configure(width = 10, activebackground = "#33B5E5", relief = FLAT)
-    # sv = StringVar()
-    # e = Entry(textvariable=sv)
-    # sv.set("Search")
-    # sv.trace("w", lambda name, index, mode, sv=sv, e=e: hello(sv, e))
-    # e_window = canvas.create_window(10, 10, anchor=NW, window=e)
-    # root.bind("<Button-1>", mouseClick)
+    button1 = Button(text = "Quit", anchor = W)
+    button1.configure(width = 10, activebackground = "#33B5E5", relief = FLAT)
+    sv = StringVar()
+    e = Entry(textvariable=sv)
+    sv.set("Search")
+    sv.trace("w", lambda name, index, mode, sv=sv, e=e: hello(sv, e))
+    e_window = canvas.create_window(10, 10, anchor=NW, window=e)
+    root.bind("<Button-1>", mouseClick)
     canvas.mainloop()
 
 def hello(var, entry):
@@ -75,9 +102,6 @@ def hello(var, entry):
 
 def mouseClick(*args):
     print "mouseClick"
-
-def rgb(red, green, blue):
-    return "#%02x%02x%02x" % (red, green, blue)
 
 def sampleStatesData():
     states = ['WA', 'DE', 'DC', 'WI', 'WV', 'HI', 'FL', 'WY', 'NH', 'NJ', 'NM', 'TX', 'LA', 'NC', 'ND', 'NE', 'TN', 'NY', 'PA', 'MT', 'RI', 'NV', 'VA', 'CO', 'AK', 'AL', 'AR', 'VT', 'GA', 'IN', 'IA', 'MA', 'AZ', 'CA', 'ID', 'CT', 'ME', 'MD', 'OH', 'UT', 'MO', 'MN', 'MI', 'KS', 'OK', 'MS', 'SC', 'KY', 'SD', 'OR', 'IL']
