@@ -11,7 +11,7 @@ class Data(object):
 
 	def getData(self):
 		self.generateCSV()
-		with open("%s.csv" % self.word, 'rb') as csvfile:
+		with open("data.csv", 'rb') as csvfile:
 			readFile = csv.reader(csvfile, dialect='excel', quotechar='|')
 			listOfValues = [ ]
 			readInput = ""
@@ -41,8 +41,8 @@ class Data(object):
 		return listOfValues
 
 	def generateCSV(self):
-		google_username = ""
-		google_password = ""
+		google_username = "hackcmu2015"
+		google_password = "hack2015"
 		path = os.getcwd()+"/"
 
 		# connect to Google
@@ -55,7 +55,7 @@ class Data(object):
 		time.sleep(randint(5, 10))
 
 		# download file
-		connector.save_csv(path, self.word)
+		connector.save_csv(path, "data")
 
 
 # dataex = Data("pizza")
