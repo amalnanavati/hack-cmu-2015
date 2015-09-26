@@ -16,8 +16,8 @@ class Display(object):
 		self.font = "helvetica 16"
 		self.col_bg = "#FFFFFE"
 		self.col_text = "#CCCCCF"
-		self.col_max = (255,14,47)
-		self.col_min = (111,130,158)
+		self.col_min = (255,14,47)
+		self.col_max = (111,130,158)
 		self.states = ['WA', 'DE', 'DC', 'WI', 'WV', 'HI', 'FL', 'WY', 'NH', 'NJ', 'NM', 'TX', 'LA', 'NC', 'ND', 'NE', 'TN', 'NY', 'PA', 'MT', 'RI', 'NV', 'VA', 'CO', 'AK', 'AL', 'AR', 'VT', 'GA', 'IN', 'IA', 'MA', 'AZ', 'CA', 'ID', 'CT', 'ME', 'MD', 'OH', 'UT', 'MO', 'MN', 'MI', 'KS', 'OK', 'MS', 'SC', 'KY', 'SD', 'OR', 'IL']
 		self.colorDict = {key:"azure" for key in self.states}
 		
@@ -40,17 +40,20 @@ class Display(object):
 		
 	def draw_map(self):
 		self.space.delete(ALL)
-		self.map.draw(self.space,self.colorDict,self.width,self.height)
+		self.map.draw(self.space,self.colorDict)
 		
 	def temp(self,x,y):
 		print "%s,%s"%(x,y)
 		
 	def convert(self,data):
+		print data
 		results = {}
 		for pair in data:
-			state,factor = pair
-			(r,g,b) = tuple(map(lambda x, y: (factor/100)*x + (1 - factor/100)*y, self.col_min, self.col_max))
-			results[state] = "%02x02x02x"%(r,g,b)
+			(state,factor) = (pair[0], pair[1])
+			print (state, factor)
+			(r,g,b) = tuple(map(lambda x, y: int((float(factor)/100)*x + (1 - float(factor)/100)*y), self.col_min, self.col_max))
+			print (r,g,b)
+			results[state] = "#%02x%02x%02x"%(r,g,b)
 		return results
 		
 	def query(self):

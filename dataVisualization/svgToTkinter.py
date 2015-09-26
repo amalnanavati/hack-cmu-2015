@@ -58,17 +58,18 @@ class SVG(object):
 
     def getSVGPath(self, svgTag):
         """Given a SVG path, adds it to the dictionary of IDs and polygon paths"""
+        print repr(svgTag)
         # Get the Path ID
-        beginI = svgTag.find("id=")+len('id="')
+        beginI = svgTag.find(" id=")+len(' id="')
         endI = svgTag.find("\"", beginI)
         ID = svgTag[beginI:endI]
         print ID
         # Get the path code
-        beginI = svgTag.find("d=")+len('d="')
+        beginI = svgTag.find(" d=")+len(' d="')
         endI = svgTag.find("\"", beginI)
         pathCode = svgTag[beginI:endI]
+        print pathCode
         self.svgPaths[ID] = self.convertSVGPathToXYCoordinates(pathCode)
-        # print self.svgPaths
 
     def convertSVGPathToXYCoordinates(self, pathCode):
         """Converts the instructions in the SVG file to a list of (x,y)
@@ -78,6 +79,9 @@ class SVG(object):
                                          # arguments
         command = ""
         while (len(directions) > 0):
+            if directions[0] == '': 
+                directions.pop(0)
+                break
             if directions[0].isalpha():
                 command = directions.pop(0)
                 if (command == "M" or command == "m"):
@@ -188,11 +192,7 @@ class SVG(object):
 
         return xyPoints
 
-    def draw(self, canvas, colorDict = {}, width=0, height=0):
-        if (width == 0): xScale = 1
-        else: xScale = width/self.width
-        if (height == 0): yScale = 1
-        else: yScale = height/self.height
+    def draw(self, canvas, colorDict = {}):
         for ID in self.svgPaths:
             if ID not in colorDict.keys(): color = "white"
             else: color = colorDict[ID]
@@ -205,13 +205,13 @@ class SVG(object):
 
 
 # import random
-# svg = SVG('Blank_US_Map.svg')
+# svg = SVG('USA_Counties_with_FIPS_and_names.svg')
 # root = Tk()
-# states = ['WA', 'DE', 'DC', 'WI', 'WV', 'HI', 'FL', 'WY', 'NH', 'NJ', 'NM', 'TX', 'LA', 'NC', 'ND', 'NE', 'TN', 'NY', 'PA', 'MT', 'RI', 'NV', 'VA', 'CO', 'AK', 'AL', 'AR', 'VT', 'GA', 'IN', 'IA', 'MA', 'AZ', 'CA', 'ID', 'CT', 'ME', 'MD', 'OH', 'UT', 'MO', 'MN', 'MI', 'KS', 'OK', 'MS', 'SC', 'KY', 'SD', 'OR', 'IL']
-# colorDict = {key:random.choice(["red","orange","yellow","green","blue","purple"]) for key in states}
+# # states = ['WA', 'DE', 'DC', 'WI', 'WV', 'HI', 'FL', 'WY', 'NH', 'NJ', 'NM', 'TX', 'LA', 'NC', 'ND', 'NE', 'TN', 'NY', 'PA', 'MT', 'RI', 'NV', 'VA', 'CO', 'AK', 'AL', 'AR', 'VT', 'GA', 'IN', 'IA', 'MA', 'AZ', 'CA', 'ID', 'CT', 'ME', 'MD', 'OH', 'UT', 'MO', 'MN', 'MI', 'KS', 'OK', 'MS', 'SC', 'KY', 'SD', 'OR', 'IL']
+# # colorDict = {key:random.choice(["red","orange","yellow","green","blue","purple"]) for key in states}
 # canvas = Canvas(root, width=svg.width, height=svg.height)
 # canvas.pack()
-# svg.draw(canvas, colorDict=colorDict)
+# svg.draw(canvas)#, colorDict=colorDict)
 # canvas.mainloop()
 
         
