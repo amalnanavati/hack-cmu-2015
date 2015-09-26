@@ -3,6 +3,7 @@ import time
 from random import randint
 from parsecsv import *
 
+
 google_username = "hackcmu2015"
 google_password = "hack2015"
 path = "/Users/AnnaGupta/hack-cmu-2015/pytrends-master/examples/"
