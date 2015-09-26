@@ -3,5 +3,5 @@ Our project for Hack CMU 2015
 Team Members:
 Amal Nanavati
 Nicholas Sieger
-Anna Gupta
+AnnaBanana Gupta
 Nancy Xiao
