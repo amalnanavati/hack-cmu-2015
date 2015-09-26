@@ -4,4 +4,3 @@ Team Members:
 Amal Nanavati
 Nicholas Sieger
 Anna Gupta
-Nancy Xiao
